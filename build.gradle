@@ -1,0 +1,58 @@
+buildscript {
+    repositories {
+        maven { url 'http://asakusafw.s3.amazonaws.com/maven/releases' }
+    }
+    dependencies {
+        //classpath group: 'com.asakusafw', name: 'asakusa-gradle-plugins', version: '0.7.6'
+        classpath group: 'com.asakusafw.spark', name: 'asakusa-spark-gradle', version: '0.2.1'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    distributionUrl 'http://services.gradle.org/distributions/gradle-2.8-bin.zip'
+    jarFile file('.buildtools/gradlew.jar')
+}
+
+apply plugin: 'asakusafw'
+apply plugin: 'asakusafw-organizer'
+apply plugin: 'eclipse'
+apply plugin: 'asakusafw-spark'
+apply plugin: 'idea'
+
+asakusafw {
+    asakusafwVersion '0.7.6-hadoop2'
+
+    modelgen {
+        modelgenSourcePackage 'com.example.modelgen'
+    }
+    compiler {
+        compiledSourcePackage 'com.example.batchapp'
+    }
+}
+
+asakusafwOrganizer {
+    profiles.prod {
+        asakusafwVersion asakusafw.asakusafwVersion
+    }
+    profiles.emr {
+        asakusafwVersion asakusafw.asakusafwVersion
+        assembly.into('.') {
+            put 'src/dist/emr'
+            replace 'asakusa-resources.xml', directioRootFsPath: 'wasb:///'
+        }
+    }
+}
+
+dependencies {
+    compile group: 'com.asakusafw.sdk', name: 'asakusa-sdk-core', version: asakusafw.asakusafwVersion
+    compile group: 'com.asakusafw.sdk', name: 'asakusa-sdk-directio', version: asakusafw.asakusafwVersion
+    compile group: 'com.asakusafw.sdk', name: 'asakusa-sdk-windgate', version: asakusafw.asakusafwVersion
+    // directio lineに必要
+    compile group: 'com.asakusafw.sandbox', name: 'asakusa-directio-dmdl-ext', version: asakusafw.asakusafwVersion
+
+    provided (group: 'org.apache.hadoop', name: 'hadoop-client', version: '2.7.1') {
+        exclude module: 'junit'
+        exclude module: 'mockito-all'
+        exclude module: 'slf4j-log4j12'
+    }
+}

@@ -1,0 +1,20 @@
+// テキストファイル入力モデル
+@directio.line                    -- 行単位で読み込む場合のdirectio指定
+text = {
+    line: TEXT;
+};
+
+// 単語に分解した際の中間形式
+word = {
+    word: TEXT;
+};
+
+// 単語の集計。ここでは、集計モデルを使う
+@directio.csv(                     -- CSVファイル入出力の場合のdirectio指定
+    has_header = TRUE
+)
+summarized word_count = word => { -- wordモデルを集計してword_countを作成
+    any word -> word;             -- 元の属性 -> 集計モデルの属性 で定義
+    count word -> count;          -- 集計演算子。count, sum, max, minがある
+} % word;                         -- wordをグループ化キーとする (GROUP BY word)
+
