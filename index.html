@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Asakusa-wordcount-example by nautilus-sekiguchi</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Asakusa-wordcount-example</h1>
+        <p>Wordcount example with Asakusa Framework</p>
+
+        <p class="view"><a href="https://github.com/nautilus-sekiguchi/asakusa-wordcount-example">View the Project on GitHub <small>nautilus-sekiguchi/asakusa-wordcount-example</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/nautilus-sekiguchi/asakusa-wordcount-example/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/nautilus-sekiguchi/asakusa-wordcount-example/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/nautilus-sekiguchi/asakusa-wordcount-example">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="asakusa-wordcount-example" class="anchor" href="#asakusa-wordcount-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Asakusa WordCount Example</h1>
+
+<p><a href="https://hadoop.apache.org/docs/current/hadoop-mapreduce-client/hadoop-mapreduce-client-core/MapReduceTutorial.html#Example:_WordCount_v1.0">Hadoop WordCount</a>, <a href="http://spark.apache.org/examples.html">Spark WordCount</a> と同様のWord CountをAsakusa Frameworkで実装したものです。</p>
+
+<h2>
+<a id="処理概要" class="anchor" href="#%E5%87%A6%E7%90%86%E6%A6%82%E8%A6%81" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>処理概要</h2>
+
+<p><img src="imgs/flow.png" alt="flow"></p>
+
+<p>入力データを <a href="http://docs.asakusafw.com/0.7.5/release/ja/html/sandbox/directio-line.html">DirectIO line</a> で読み込み、 <a href="http://docs.asakusafw.com/latest/release/ja/html/dsl/operators.html#extract-operator">@Extract</a> で単語に分解し、 <a href="http://docs.asakusafw.com/latest/release/ja/html/dsl/operators.html#summarize-operator">@Summarize</a> で集計しています。</p>
+
+<h2>
+<a id="必要環境" class="anchor" href="#%E5%BF%85%E8%A6%81%E7%92%B0%E5%A2%83" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>必要環境</h2>
+
+<ul>
+<li>Hadoop 2.7.*</li>
+<li>Spark 1.5 以上</li>
+</ul>
+
+<h2>
+<a id="テスト" class="anchor" href="#%E3%83%86%E3%82%B9%E3%83%88" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>テスト</h2>
+
+<p>演算子の単体テストと、ジョブフローのテストを実装しています。
+テストの詳細については、 <a href="http://docs.asakusafw.com/latest/release/ja/html/testing/start-guide.html">ユーザーガイド</a> をご覧ください。</p>
+
+<h2>
+<a id="ビルド" class="anchor" href="#%E3%83%93%E3%83%AB%E3%83%89" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ビルド</h2>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-k">&gt;</span> ./gradlew assemble</pre></div>
+
+<h2>
+<a id="配置" class="anchor" href="#%E9%85%8D%E7%BD%AE" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>配置</h2>
+
+<div class="highlight highlight-source-shell"><pre><span class="pl-k">&gt;</span> cp -rp build/spark-batchapps/spark.wordcount <span class="pl-smi">$ASAKUSA_HOME</span>/batchapps/</pre></div>
+
+<h2>
+<a id="実行用データ" class="anchor" href="#%E5%AE%9F%E8%A1%8C%E7%94%A8%E3%83%87%E3%83%BC%E3%82%BF" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>実行用データ</h2>
+
+<p><code>target/testing/directio/inputtext</code> に、Project Gutenbergの <a href="http://www.gutenberg.org/cache/epub/11/pg11.txt">Alice in Wonderland</a>を同梱しています。HDFSに配置して、実行してください。</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/nautilus-sekiguchi">nautilus-sekiguchi</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
