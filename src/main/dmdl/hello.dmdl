@@ -10,6 +10,7 @@ word = {
 };
 
 // 単語の集計。ここでは、集計モデルを使う
+@directio.hive.parquet
 @directio.csv(                     -- CSVファイル入出力の場合のdirectio指定
     has_header = TRUE
 )

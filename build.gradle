@@ -31,6 +31,7 @@ asakusafw {
 }
 
 asakusafwOrganizer {
+    hive.enabled true
     profiles.prod {
         asakusafwVersion asakusafw.asakusafwVersion
     }
@@ -49,6 +50,8 @@ dependencies {
     compile group: 'com.asakusafw.sdk', name: 'asakusa-sdk-windgate', version: asakusafw.asakusafwVersion
     // directio lineに必要
     compile group: 'com.asakusafw.sandbox', name: 'asakusa-directio-dmdl-ext', version: asakusafw.asakusafwVersion
+    // directio hiveに必要
+    compile group: 'com.asakusafw.sdk', name: 'asakusa-sdk-hive', version: asakusafw.asakusafwVersion
 
     provided (group: 'org.apache.hadoop', name: 'hadoop-client', version: '2.7.1') {
         exclude module: 'junit'
