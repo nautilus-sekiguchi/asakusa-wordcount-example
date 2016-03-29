@@ -16,6 +16,6 @@ word = {
 )
 summarized word_count = word => { -- wordモデルを集計してword_countを作成
     any word -> word;             -- 元の属性 -> 集計モデルの属性 で定義
-    count word -> count;          -- 集計演算子。count, sum, max, minがある
+    count word -> word_count;     -- 集計演算子。count, sum, max, minがある
 } % word;                         -- wordをグループ化キーとする (GROUP BY word)
 
